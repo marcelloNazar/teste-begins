@@ -67,7 +67,7 @@ describe('ListUsersUseCase unit tests', () => {
       total: 2,
       currentPage: 1,
       lastPage: 1,
-      perPage: 15,
+      perPage: 20,
     })
   })
 

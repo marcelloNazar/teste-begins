@@ -1,21 +1,22 @@
-import { UserEntity, UserProps } from '@/users/domain/entities/user.entity'
-import { UserDataBuilder } from '@/users/domain/helpers/user-data-builder'
+import { StoreEntity, StoreProps } from '@/store/domain/entities/store.entity'
+import { StoreDataBuilder } from '@/store/domain/helpers/store-data-builder'
 
-describe('UserEntity unit tests', () => {
-  let props: UserProps
-  let sut: UserEntity
+describe('StoreEntity unit tests', () => {
+  let props: StoreProps
+  let sut: StoreEntity
 
   beforeEach(() => {
-    UserEntity.validate = jest.fn()
-    props = UserDataBuilder({})
-    sut = new UserEntity(props)
+    StoreEntity.validate = jest.fn()
+    props = StoreDataBuilder({})
+    sut = new StoreEntity(props)
   })
 
   it('Constructor method', () => {
-    expect(UserEntity.validate).toHaveBeenCalled()
+    expect(StoreEntity.validate).toHaveBeenCalled()
     expect(sut.props.name).toEqual(props.name)
-    expect(sut.props.email).toEqual(props.email)
-    expect(sut.props.password).toEqual(props.password)
+    expect(sut.props.url).toEqual(props.url)
+    expect(sut.props.link).toEqual(props.link)
+    expect(sut.props.address).toEqual(props.address)
     expect(sut.props.createdAt).toBeInstanceOf(Date)
   })
 
@@ -31,38 +32,50 @@ describe('UserEntity unit tests', () => {
     expect(typeof sut.props.name).toBe('string')
   })
 
-  it('Getter of email field', () => {
-    expect(sut.props.email).toBeDefined()
-    expect(sut.props.email).toEqual(props.email)
-    expect(typeof sut.props.email).toBe('string')
+  it('Getter of url field', () => {
+    expect(sut.props.url).toBeDefined()
+    expect(sut.props.url).toEqual(props.url)
+    expect(typeof sut.props.url).toBe('string')
   })
 
-  it('Getter of password field', () => {
-    expect(sut.props.password).toBeDefined()
-    expect(sut.props.password).toEqual(props.password)
-    expect(typeof sut.props.password).toBe('string')
+  it('Setter of url field', () => {
+    sut['url'] = 'other url'
+    expect(sut.props.url).toEqual('other url')
+    expect(typeof sut.props.url).toBe('string')
   })
 
-  it('Setter of password field', () => {
-    sut['password'] = 'other password'
-    expect(sut.props.password).toEqual('other password')
-    expect(typeof sut.props.password).toBe('string')
+  it('Getter of link field', () => {
+    expect(sut.props.link).toBeDefined()
+    expect(sut.props.link).toEqual(props.link)
+    expect(typeof sut.props.link).toBe('string')
   })
 
-  it('Getter of password field', () => {
+  it('Setter of link field', () => {
+    sut['link'] = 'other link'
+    expect(sut.props.link).toEqual('other link')
+    expect(typeof sut.props.link).toBe('string')
+  })
+
+  it('Getter of createdAt field', () => {
     expect(sut.props.createdAt).toBeDefined()
     expect(sut.props.createdAt).toBeInstanceOf(Date)
   })
 
-  it('Should update a user', () => {
-    expect(UserEntity.validate).toHaveBeenCalled()
-    sut.update('other name')
+  it('Should update the name field', () => {
+    expect(StoreEntity.validate).toHaveBeenCalled()
+    sut.updateName('other name')
     expect(sut.props.name).toEqual('other name')
   })
 
-  it('Should update the password field', () => {
-    expect(UserEntity.validate).toHaveBeenCalled()
-    sut.updatePassword('other password')
-    expect(sut.props.password).toEqual('other password')
+  it('Should update the link field', () => {
+    expect(StoreEntity.validate).toHaveBeenCalled()
+    sut.updateLink('other.com')
+    expect(sut.props.link).toEqual('other.com')
+  })
+
+  it('Should update the address field', () => {
+    expect(StoreEntity.validate).toHaveBeenCalled()
+    sut.updateAddress('other address')
+    expect(sut.props.address).toEqual('other address')
   })
 })

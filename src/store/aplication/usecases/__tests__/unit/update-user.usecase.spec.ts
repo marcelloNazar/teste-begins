@@ -1,43 +1,49 @@
-import { UserInMemoryRepository } from '@/users/infrastructure/database/in-memory/user-in-memnory.repository'
+import { StoreInMemoryRepository } from '@/store/infrastructure/database/in-memory/user-in-memnory.repository'
 import { NotFoundError } from '@/shared/domain/errors/not-found-error'
-import { UserEntity } from '@/users/domain/entities/user.entity'
-import { UserDataBuilder } from '@/users/domain/helpers/user-data-builder'
-import { UpdateUserUseCase } from '../../update-store.usecase'
+import { StoreEntity } from '@/store/domain/entities/store.entity'
+import { StoreDataBuilder } from '@/store/domain/helpers/store-data-builder'
+import { UpdateStoreUseCase } from '../../update-store.usecase'
 import { BadRequestError } from '@/shared/application/errors/bad-request-error'
 
-describe('UpdateUserUseCase unit tests', () => {
-  let sut: UpdateUserUseCase.UseCase
-  let repository: UserInMemoryRepository
+describe('UpdateStoreUseCase unit tests', () => {
+  let sut: UpdateStoreUseCase.UseCase
+  let repository: StoreInMemoryRepository
 
   beforeEach(() => {
-    repository = new UserInMemoryRepository()
-    sut = new UpdateUserUseCase.UseCase(repository)
+    repository = new StoreInMemoryRepository()
+    sut = new UpdateStoreUseCase.UseCase(repository)
   })
 
   it('Should throws error when entity not found', async () => {
     await expect(() =>
-      sut.execute({ id: 'fakeId', name: 'test name' }),
+      sut.execute({
+        id: 'fakeId',
+        name: 'test name',
+        url: 'fakeurl.com',
+        link: 'fakelink.com',
+        address: 'fake address',
+      }),
     ).rejects.toThrow(new NotFoundError('Entity not found'))
-  })
-
-  it('Should throws error when name not provided', async () => {
-    await expect(() => sut.execute({ id: 'fakeId', name: '' })).rejects.toThrow(
-      new BadRequestError('Name not provided'),
-    )
   })
 
   it('Should update a user', async () => {
     const spyUpdate = jest.spyOn(repository, 'update')
-    const items = [new UserEntity(UserDataBuilder({}))]
+    const items = [new StoreEntity(StoreDataBuilder({}))]
     repository.items = items
 
-    const result = await sut.execute({ id: items[0]._id, name: 'new name' })
+    const result = await sut.execute({
+      id: items[0]._id,
+      name: 'new name',
+      url: 'fakeurl.com',
+      link: 'fakelink.com',
+      address: 'fake address',
+    })
     expect(spyUpdate).toHaveBeenCalledTimes(1)
     expect(result).toMatchObject({
       id: items[0].id,
       name: 'new name',
-      email: items[0].email,
-      password: items[0].password,
+      url: items[0].url,
+      link: items[0].link,
       createdAt: items[0].createdAt,
     })
   })

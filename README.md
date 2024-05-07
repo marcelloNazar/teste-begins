@@ -47,6 +47,8 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
+
+After go to http://localhost:3000/ap
 ```
 
 ## Test
@@ -58,8 +60,8 @@ $ npm run test
 # e2e tests
 $ npm run test:e2e
 
-# test coverage
-$ npm run test:cov
+# test integration
+$ npm run test:int
 ```
 
 ## Support

@@ -114,7 +114,7 @@ describe('StorePrismaRepository integration tests', () => {
 
   it('should throws error when a entity not found', async () => {
     await expect(() => sut.findByName('aa')).rejects.toThrow(
-      new NotFoundError(`StoreModel not found using email a@a.com`),
+      new NotFoundError(`StoreModel not found using name aa`),
     )
   })
 
@@ -134,8 +134,8 @@ describe('StorePrismaRepository integration tests', () => {
       data: entity.toJSON(),
     })
 
-    await expect(() => sut.urlExists('aa.com')).rejects.toThrow(
-      new ConflictError(`Email address already used`),
+    await expect(() => sut.urlExists('aa')).rejects.toThrow(
+      new ConflictError(`Name already used`),
     )
   })
 
@@ -168,7 +168,7 @@ describe('StorePrismaRepository integration tests', () => {
 
       expect(searchOutput).toBeInstanceOf(StoreRepository.SearchResult)
       expect(searchOutput.total).toBe(16)
-      expect(searchOutput.items.length).toBe(15)
+      expect(searchOutput.items.length).toBe(16)
       searchOutput.items.forEach(item => {
         expect(item).toBeInstanceOf(StoreEntity)
       })

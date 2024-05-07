@@ -1,27 +1,28 @@
 import { instanceToPlain } from 'class-transformer'
-import { UserCollectionPresenter, UserPresenter } from '../../user.presenter'
+import { StoreCollectionPresenter, StorePresenter } from '../../user.presenter'
 import { PaginationPresenter } from '@/shared/infrastructure/presenters/pagination.presenter'
 
-describe('UserPresenter unit tests', () => {
+describe('StorePresenter unit tests', () => {
   const createdAt = new Date()
   const props = {
     id: 'e71c52a2-9710-4a96-a08e-144af4209b5d',
     name: 'test name',
-    email: 'a@a.com',
-    password: 'fake',
+    url: 'aa.com',
+    link: 'aa.com',
+    address: 'fake address',
     createdAt,
   }
-  let sut: UserPresenter
+  let sut: StorePresenter
 
   beforeEach(() => {
-    sut = new UserPresenter(props)
+    sut = new StorePresenter(props)
   })
 
   describe('constructor', () => {
     it('should set values', () => {
       expect(sut.id).toEqual(props.id)
       expect(sut.name).toEqual(props.name)
-      expect(sut.email).toEqual(props.email)
+      expect(sut.url).toEqual(props.url)
       expect(sut.createdAt).toEqual(props.createdAt)
     })
   })
@@ -31,25 +32,28 @@ describe('UserPresenter unit tests', () => {
     expect(output).toStrictEqual({
       id: 'e71c52a2-9710-4a96-a08e-144af4209b5d',
       name: 'test name',
-      email: 'a@a.com',
+      url: 'aa.com',
+      link: 'aa.com',
+      address: 'fake address',
       createdAt: createdAt.toISOString(),
     })
   })
 })
 
-describe('UserCollectionPresenter unit tests', () => {
+describe('StoreCollectionPresenter unit tests', () => {
   const createdAt = new Date()
   const props = {
     id: 'e71c52a2-9710-4a96-a08e-144af4209b5d',
     name: 'test name',
-    email: 'a@a.com',
-    password: 'fake',
+    url: 'aa.com',
+    link: 'aa.com',
+    address: 'fake address',
     createdAt,
   }
 
   describe('constructor', () => {
     it('should set values', () => {
-      const sut = new UserCollectionPresenter({
+      const sut = new StoreCollectionPresenter({
         items: [props],
         currentPage: 1,
         perPage: 2,
@@ -65,12 +69,12 @@ describe('UserCollectionPresenter unit tests', () => {
           total: 1,
         }),
       )
-      expect(sut.data).toStrictEqual([new UserPresenter(props)])
+      expect(sut.data).toStrictEqual([new StorePresenter(props)])
     })
   })
 
   it('should presenter data', () => {
-    let sut = new UserCollectionPresenter({
+    let sut = new StoreCollectionPresenter({
       items: [props],
       currentPage: 1,
       perPage: 2,
@@ -83,7 +87,9 @@ describe('UserCollectionPresenter unit tests', () => {
         {
           id: 'e71c52a2-9710-4a96-a08e-144af4209b5d',
           name: 'test name',
-          email: 'a@a.com',
+          url: 'aa.com',
+          link: 'aa.com',
+          address: 'fake address',
           createdAt: createdAt.toISOString(),
         },
       ],
@@ -95,7 +101,7 @@ describe('UserCollectionPresenter unit tests', () => {
       },
     })
 
-    sut = new UserCollectionPresenter({
+    sut = new StoreCollectionPresenter({
       items: [props],
       currentPage: '1' as any,
       perPage: '2' as any,
@@ -108,7 +114,9 @@ describe('UserCollectionPresenter unit tests', () => {
         {
           id: 'e71c52a2-9710-4a96-a08e-144af4209b5d',
           name: 'test name',
-          email: 'a@a.com',
+          url: 'aa.com',
+          link: 'aa.com',
+          address: 'fake address',
           createdAt: createdAt.toISOString(),
         },
       ],

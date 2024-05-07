@@ -31,19 +31,19 @@ describe('Searchable Repository unit tests', () => {
 
     it('perPage prop', () => {
       const sut = new SearchParams()
-      expect(sut.perPage).toEqual(15)
+      expect(sut.perPage).toEqual(20)
 
       const params = [
-        { perPage: null as any, expected: 15 },
-        { perPage: undefined as any, expected: 15 },
-        { perPage: '' as any, expected: 15 },
-        { perPage: 'test' as any, expected: 15 },
-        { perPage: 0, expected: 15 },
-        { perPage: -1, expected: 15 },
-        { perPage: 5.5, expected: 15 },
-        { perPage: true, expected: 15 },
-        { perPage: false, expected: 15 },
-        { perPage: {}, expected: 15 },
+        { perPage: null as any, expected: 20 },
+        { perPage: undefined as any, expected: 20 },
+        { perPage: '' as any, expected: 20 },
+        { perPage: 'test' as any, expected: 20 },
+        { perPage: 0, expected: 20 },
+        { perPage: -1, expected: 20 },
+        { perPage: 5.5, expected: 20 },
+        { perPage: true, expected: 20 },
+        { perPage: false, expected: 20 },
+        { perPage: {}, expected: 20 },
         { perPage: 1, expected: 1 },
         { perPage: 2, expected: 2 },
         { perPage: 25, expected: 25 },

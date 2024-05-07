@@ -11,7 +11,7 @@ type Props = {
 
 export function StoreDataBuilder(props: Props): StoreProps {
   return {
-    name: props.name ?? faker.person.fullName(),
+    name: props.name ?? faker.person.jobType(),
     url: props.url ?? faker.internet.url(),
     link: props.link ?? faker.internet.url(),
     address: props.address ?? faker.string.alphanumeric(),

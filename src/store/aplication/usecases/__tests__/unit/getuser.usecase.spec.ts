@@ -1,16 +1,16 @@
-import { UserInMemoryRepository } from '@/users/infrastructure/database/in-memory/user-in-memnory.repository'
-import { GetUserUseCase } from '../../get-store.usecase'
+import { StoreInMemoryRepository } from '@/store/infrastructure/database/in-memory/user-in-memnory.repository'
+import { GetStoreUseCase } from '../../get-store.usecase'
 import { NotFoundError } from '@/shared/domain/errors/not-found-error'
-import { UserEntity } from '@/users/domain/entities/user.entity'
-import { UserDataBuilder } from '@/users/domain/helpers/user-data-builder'
+import { StoreEntity } from '@/store/domain/entities/store.entity'
+import { StoreDataBuilder } from '@/store/domain/helpers/store-data-builder'
 
-describe('GetUserUseCase unit tests', () => {
-  let sut: GetUserUseCase.UseCase
-  let repository: UserInMemoryRepository
+describe('GetStoreUseCase unit tests', () => {
+  let sut: GetStoreUseCase.UseCase
+  let repository: StoreInMemoryRepository
 
   beforeEach(() => {
-    repository = new UserInMemoryRepository()
-    sut = new GetUserUseCase.UseCase(repository)
+    repository = new StoreInMemoryRepository()
+    sut = new GetStoreUseCase.UseCase(repository)
   })
 
   it('Should throws error when entity not found', async () => {
@@ -21,7 +21,7 @@ describe('GetUserUseCase unit tests', () => {
 
   it('Should be able to get user profile', async () => {
     const spyFindById = jest.spyOn(repository, 'findById')
-    const items = [new UserEntity(UserDataBuilder({}))]
+    const items = [new StoreEntity(StoreDataBuilder({}))]
     repository.items = items
 
     const result = await sut.execute({ id: items[0]._id })
@@ -29,8 +29,9 @@ describe('GetUserUseCase unit tests', () => {
     expect(result).toMatchObject({
       id: items[0].id,
       name: items[0].name,
-      email: items[0].email,
-      password: items[0].password,
+      url: items[0].url,
+      link: items[0].link,
+      address: items[0].address,
       createdAt: items[0].createdAt,
     })
   })

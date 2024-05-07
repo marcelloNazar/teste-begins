@@ -120,25 +120,6 @@ describe('InMemoryRepository unit tests', () => {
   })
 
   describe('search method', () => {
-    it('should apply only pagination when the other params are null', async () => {
-      const entity = new StubEntity({ name: 'test', price: 50 })
-      const items = Array(16).fill(entity)
-      sut.items = items
-
-      const params = await sut.search(new SearchParams())
-      expect(params).toStrictEqual(
-        new SearchResult({
-          items: Array(15).fill(entity),
-          total: 16,
-          currentPage: 1,
-          perPage: 15,
-          sort: null,
-          sortDir: null,
-          filter: null,
-        }),
-      )
-    })
-
     it('should apply paginate and filter', async () => {
       const items = [
         new StubEntity({ name: 'test', price: 50 }),

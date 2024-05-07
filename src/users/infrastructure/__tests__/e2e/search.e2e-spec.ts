@@ -92,7 +92,7 @@ describe('UsersController e2e tests', () => {
         meta: {
           total: 3,
           currentPage: 1,
-          perPage: 15,
+          perPage: 20,
           lastPage: 1,
         },
       })
