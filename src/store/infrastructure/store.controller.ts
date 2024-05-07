@@ -67,6 +67,7 @@ export class StoresController {
     status: 422,
     description: 'Corpo da requisição com dados inválidos',
   })
+  @UseGuards(AuthGuard)
   @Post()
   async create(@Body() addStoreDto: AddStoreDto) {
     const output = await this.addStoreUseCase.execute(addStoreDto)
