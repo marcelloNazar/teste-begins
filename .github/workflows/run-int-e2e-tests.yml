@@ -1,10 +1,6 @@
 name: CI - Integration and E2E Tests
 
-<<<<<<< HEAD
 on: [push]
-=======
-on: [pull_request]
->>>>>>> 888caf4f3328b1bff232a994839806eaed0a7b1c
 
 jobs:
   run-int-e2e-tests:
