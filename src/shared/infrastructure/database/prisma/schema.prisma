@@ -22,3 +22,14 @@ model User {
 
   @@map("users")
 }
+
+model Store {
+  id        String   @id @db.Uuid
+  name      String   @db.VarChar(255)
+  url       String   @unique @db.VarChar(255)
+  address   String   @unique @db.VarChar(255)
+  link      String   @db.VarChar(255)
+  createdAt DateTime @default(now())
+
+  @@map("stores")
+}

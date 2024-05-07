@@ -3,8 +3,15 @@ import { EnvConfigModule } from './shared/infrastructure/env-config/env-config.m
 import { UsersModule } from './users/infrastructure/users.module'
 import { DatabaseModule } from './shared/infrastructure/database/database.module'
 import { AuthModule } from './auth/infrastucture/auth.module'
+import { StoresModule } from './store/infrastructure/store.module'
 
 @Module({
-  imports: [EnvConfigModule, UsersModule, DatabaseModule, AuthModule],
+  imports: [
+    EnvConfigModule,
+    UsersModule,
+    DatabaseModule,
+    AuthModule,
+    StoresModule,
+  ],
 })
 export class AppModule {}
