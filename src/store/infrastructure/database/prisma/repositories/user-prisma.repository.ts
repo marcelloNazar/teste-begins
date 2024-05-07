@@ -21,12 +21,12 @@ export class StorePrismaRepository implements StoreRepository.Repository {
     }
   }
 
-  async nameExists(name: string): Promise<void> {
+  async urlExists(name: string): Promise<void> {
     const store = await this.prismaService.store.findFirst({
       where: { name },
     })
     if (store) {
-      throw new ConflictError(`Email address already used`)
+      throw new ConflictError(`Name already used`)
     }
   }
 

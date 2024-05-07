@@ -21,6 +21,6 @@ export namespace StoreRepository {
       SearchResult
     > {
     findByName(name: string): Promise<StoreEntity>
-    nameExists(name: string): Promise<void>
+    urlExists(name: string): Promise<void>
   }
 }

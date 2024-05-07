@@ -28,7 +28,7 @@ export namespace AddStoreUseCase {
         throw new BadRequestError('Input data not provided')
       }
 
-      await this.storeRepository.nameExists(name)
+      await this.storeRepository.urlExists(name)
 
       const entity = new StoreEntity(Object.assign(input))
 
