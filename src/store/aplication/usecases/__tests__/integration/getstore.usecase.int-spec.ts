@@ -1,17 +1,17 @@
 import { DatabaseModule } from '@/shared/infrastructure/database/database.module'
 import { setupPrismaTests } from '@/shared/infrastructure/database/prisma/testing/setup-prisma-tests'
-import { UserPrismaRepository } from '@/users/infrastructure/database/prisma/repositories/user-prisma.repository'
 import { Test, TestingModule } from '@nestjs/testing'
 import { PrismaClient } from '@prisma/client'
 import { NotFoundError } from '@/shared/domain/errors/not-found-error'
-import { UserDataBuilder } from '@/users/domain/helpers/user-data-builder'
-import { UserEntity } from '@/users/domain/entities/user.entity'
-import { GetUserUseCase } from '../../get-store.usecase'
+import { StorePrismaRepository } from '@/store/infrastructure/database/prisma/repositories/store-prisma.repository'
+import { StoreEntity } from '@/store/domain/entities/store.entity'
+import { StoreDataBuilder } from '@/store/domain/helpers/store-data-builder'
+import { GetStoreUseCase } from '../../get-store.usecase'
 
-describe('GetUserUseCase integration tests', () => {
+describe('GetStoreUseCase integration tests', () => {
   const prismaService = new PrismaClient()
-  let sut: GetUserUseCase.UseCase
-  let repository: UserPrismaRepository
+  let sut: GetStoreUseCase.UseCase
+  let repository: StorePrismaRepository
   let module: TestingModule
 
   beforeAll(async () => {
@@ -19,12 +19,12 @@ describe('GetUserUseCase integration tests', () => {
     module = await Test.createTestingModule({
       imports: [DatabaseModule.forTest(prismaService)],
     }).compile()
-    repository = new UserPrismaRepository(prismaService as any)
+    repository = new StorePrismaRepository(prismaService as any)
   })
 
   beforeEach(async () => {
-    sut = new GetUserUseCase.UseCase(repository)
-    await prismaService.user.deleteMany()
+    sut = new GetStoreUseCase.UseCase(repository)
+    await prismaService.store.deleteMany()
   })
 
   afterAll(async () => {
@@ -33,13 +33,13 @@ describe('GetUserUseCase integration tests', () => {
 
   it('should throws error when entity not found', async () => {
     await expect(() => sut.execute({ id: 'fakeId' })).rejects.toThrow(
-      new NotFoundError('UserModel not found using ID fakeId'),
+      new NotFoundError('StoreModel not found using ID fakeId'),
     )
   })
 
-  it('should returns a user', async () => {
-    const entity = new UserEntity(UserDataBuilder({}))
-    const model = await prismaService.user.create({
+  it('should returns a store', async () => {
+    const entity = new StoreEntity(StoreDataBuilder({}))
+    const model = await prismaService.store.create({
       data: entity.toJSON(),
     })
 

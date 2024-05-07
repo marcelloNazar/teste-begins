@@ -14,7 +14,7 @@ export function StoreDataBuilder(props: Props): StoreProps {
     name: props.name ?? faker.person.fullName(),
     url: props.url ?? faker.internet.url(),
     link: props.link ?? faker.internet.url(),
-    address: props.address ?? faker.address.city(),
+    address: props.address ?? faker.string.alphanumeric(),
     createdAt: props.createdAt ?? new Date(),
   }
 }

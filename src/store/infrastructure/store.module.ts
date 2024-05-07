@@ -4,7 +4,7 @@ import { BcryptjsHashProvider } from '@/users/infrastructure/providers/hash-prov
 import { StoreRepository } from '../domain/repositories/store.repository'
 import { HashProvider } from '@/shared/application/providers/hash-provider'
 import { PrismaService } from '@/shared/infrastructure/database/prisma/prisma.service'
-import { StorePrismaRepository } from './database/prisma/repositories/user-prisma.repository'
+import { StorePrismaRepository } from './database/prisma/repositories/store-prisma.repository'
 import { AuthModule } from '@/auth/infrastucture/auth.module'
 import { AddStoreUseCase } from '../aplication/usecases/add-store.usecase'
 import { GetStoreUseCase } from '../aplication/usecases/get-store.usecase'

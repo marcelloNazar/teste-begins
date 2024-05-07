@@ -1,17 +1,16 @@
 import { DatabaseModule } from '@/shared/infrastructure/database/database.module'
 import { setupPrismaTests } from '@/shared/infrastructure/database/prisma/testing/setup-prisma-tests'
-import { UserPrismaRepository } from '@/users/infrastructure/database/prisma/repositories/user-prisma.repository'
 import { Test, TestingModule } from '@nestjs/testing'
 import { PrismaClient } from '@prisma/client'
-import { NotFoundError } from '@/shared/domain/errors/not-found-error'
-import { UserDataBuilder } from '@/users/domain/helpers/user-data-builder'
-import { ListUsersUseCase } from '../../list-store.usecase'
-import { UserEntity } from '@/users/domain/entities/user.entity'
+import { ListStoresUseCase } from '../../list-store.usecase'
+import { StorePrismaRepository } from '@/store/infrastructure/database/prisma/repositories/store-prisma.repository'
+import { StoreEntity } from '@/store/domain/entities/store.entity'
+import { StoreDataBuilder } from '@/store/domain/helpers/store-data-builder'
 
-describe('ListUsersUseCase integration tests', () => {
+describe('ListStoresUseCase integration tests', () => {
   const prismaService = new PrismaClient()
-  let sut: ListUsersUseCase.UseCase
-  let repository: UserPrismaRepository
+  let sut: ListStoresUseCase.UseCase
+  let repository: StorePrismaRepository
   let module: TestingModule
 
   beforeAll(async () => {
@@ -19,32 +18,32 @@ describe('ListUsersUseCase integration tests', () => {
     module = await Test.createTestingModule({
       imports: [DatabaseModule.forTest(prismaService)],
     }).compile()
-    repository = new UserPrismaRepository(prismaService as any)
+    repository = new StorePrismaRepository(prismaService as any)
   })
 
   beforeEach(async () => {
-    sut = new ListUsersUseCase.UseCase(repository)
-    await prismaService.user.deleteMany()
+    sut = new ListStoresUseCase.UseCase(repository)
+    await prismaService.store.deleteMany()
   })
 
   afterAll(async () => {
     await module.close()
   })
 
-  it('should return the users ordered by createdAt', async () => {
+  it('should return the stores ordered by createdAt', async () => {
     const createdAt = new Date()
-    const entities: UserEntity[] = []
-    const arrange = Array(3).fill(UserDataBuilder({}))
+    const entities: StoreEntity[] = []
+    const arrange = Array(3).fill(StoreDataBuilder({}))
     arrange.forEach((element, index) => {
       entities.push(
-        new UserEntity({
+        new StoreEntity({
           ...element,
-          email: `test${index}@mail.com`,
+          url: `local${index}.com`,
           createdAt: new Date(createdAt.getTime() + index),
         }),
       )
     })
-    await prismaService.user.createMany({
+    await prismaService.store.createMany({
       data: entities.map(item => item.toJSON()),
     })
 
@@ -54,25 +53,25 @@ describe('ListUsersUseCase integration tests', () => {
       items: entities.reverse().map(item => item.toJSON()),
       total: 3,
       currentPage: 1,
-      perPage: 15,
+      perPage: 20,
       lastPage: 1,
     })
   })
 
   it('should returns output using filter, sort and paginate', async () => {
     const createdAt = new Date()
-    const entities: UserEntity[] = []
+    const entities: StoreEntity[] = []
     const arrange = ['test', 'a', 'TEST', 'b', 'TeSt']
     arrange.forEach((element, index) => {
       entities.push(
-        new UserEntity({
-          ...UserDataBuilder({ name: element }),
+        new StoreEntity({
+          ...StoreDataBuilder({ name: element }),
           createdAt: new Date(createdAt.getTime() + index),
         }),
       )
     })
 
-    await prismaService.user.createMany({
+    await prismaService.store.createMany({
       data: entities.map(item => item.toJSON()),
     })
 

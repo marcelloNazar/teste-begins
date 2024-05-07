@@ -168,12 +168,12 @@ describe('UserPrismaRepository integration tests', () => {
 
       expect(searchOutput).toBeInstanceOf(UserRepository.SearchResult)
       expect(searchOutput.total).toBe(16)
-      expect(searchOutput.items.length).toBe(15)
+      expect(searchOutput.items.length).toBe(16)
       searchOutput.items.forEach(item => {
         expect(item).toBeInstanceOf(UserEntity)
       })
       items.reverse().forEach((item, index) => {
-        expect(`test${index + 1}@mail.com`).toBe(item.email)
+        expect(`test${index}@mail.com`).toBe(item.email)
       })
     })
 
