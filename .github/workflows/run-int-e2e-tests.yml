@@ -36,11 +36,7 @@ jobs:
         env:
           PORT: 3000
           NODE_ENV: test
-<<<<<<< HEAD
           JWT_SECRET: my_secret
-=======
-          JWT_SECRET: fake_secret
->>>>>>> 888caf4f3328b1bff232a994839806eaed0a7b1c
           JWT_EXPIRES_IN: 86400
           DATABASE_URL: 'postgresql://postgres:docker@localhost:5432/projectdb?schema=public'
 
@@ -48,10 +44,6 @@ jobs:
         env:
           PORT: 3000
           NODE_ENV: test
-<<<<<<< HEAD
           JWT_SECRET: my_secret
-=======
-          JWT_SECRET: fake_secret
->>>>>>> 888caf4f3328b1bff232a994839806eaed0a7b1c
           JWT_EXPIRES_IN: 86400
           DATABASE_URL: 'postgresql://postgres:docker@localhost:5432/projectdb?schema=public'
